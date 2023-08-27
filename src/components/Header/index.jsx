@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import "./style.scss";
 
-const baseURL = "http://worldtimeapi.org/api/ip";
+const baseURL = "https://worldtimeapi.org/api/ip";
 import axios from "axios";
 const index = () => {
 
@@ -11,7 +11,7 @@ const index = () => {
         try{
             const response = await axios.get(`${baseURL}`);
             setTime(response.data);
-            console.log(response.data)
+          
         }catch(error){
             console.log(error.message);
         }
