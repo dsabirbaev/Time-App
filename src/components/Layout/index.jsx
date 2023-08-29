@@ -4,21 +4,21 @@ const baseURL = "https://worldtimeapi.org/api/timezone";
 import axios from "axios";
 const index = () => {
 
-    const[area, setArea] = useState("");
-    const[location, setLocation] = useState("");
-    const[data, setData] = useState("");
- 
-    async function getCountryTime(){
-        try{
+    const [area, setArea] = useState("");
+    const [location, setLocation] = useState("");
+    const [data, setData] = useState("");
+
+    async function getCountryTime() {
+        try {
             const response = await axios.get(`${baseURL}/${area}/${location}`);
             setData(response.data);
-           
-        }catch(error){
+
+        } catch (error) {
             console.log(error.message);
-        } 
+        }
     }
 
-    function handleForm(e){
+    function handleForm(e) {
         e.preventDefault();
         getCountryTime();
     }
@@ -32,7 +32,7 @@ const index = () => {
         <main>
             <section className="mt-5">
                 <div className="container">
-                    <div className="wrapper p-5 border border-sky-400 rounded-2xl">
+                    <div className="wrapper p-5 border border-sky-400 rounded-2xl text-[18px]">
                         <form onSubmit={handleForm} className="flex gap-x-5 mb-8">
 
                             <select value={area} onChange={(e) => setArea(e.target.value)} className="outline-none block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -56,11 +56,33 @@ const index = () => {
                             </button>
                         </form>
 
-                        <ul className="border border-blue-400 rounded-lg p-5">
-                            <li>Location: <span className="font-normal">{data.timezone ? data.timezone : "Not found!"}</span></li>
-                            <li>Time: <span className="font-normal">{datetime.getHours()}:{datetime.getMinutes()}.{datetime.getSeconds()}</span></li>
-                            <li>Date: <span> {`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}</span></li>
-                            <li>Week: <span>{weekName[data.day_of_week] ? weekName[data.day_of_week] : "Not found!"}</span></li>
+                        <ul className="border border-blue-400 rounded-lg p-5 flex flex-col gap-y-4 text-[18px]">
+                            <li>Location: <span className="font-normal">{data.timezone ? data.timezone : <span className="font-bold"> Not found! </span>}</span></li>
+                            <li>Time: <span className="font-normal">
+                                {
+                                    datetime.length > 0 ? (
+                                        <span>
+                                            {datetime.getHours()}:{datetime.getMinutes()}.{datetime.getSeconds()}
+                                        </span>
+                                    ) : (
+                                        <span className="font-bold">Not found!</span>
+                                    )
+                                }
+
+                            </span></li>
+                            <li>Date: <span>
+                                {
+                                    datetime.length > 0 ? (
+                                        <span> 
+                                            {`${datetime.getDate()}/${datetime.getMonth() + 1}/${datetime.getFullYear()}`}                
+                                        </span>
+                                    ): (
+                                        <span className="font-bold">Not found!</span>
+                                    )
+                                }
+                                 
+                            </span></li>
+                            <li>Week: <span>{weekName[data.day_of_week] ? weekName[data.day_of_week] : <span className="font-bold"> Not found! </span>}</span></li>
                         </ul>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ const index = () => {
     return (
         <header>
             <div className="container">
-                <div className="flex items-center justify-between h-[80px] bg-slate-100 px-5">
+                <div className="flex items-center justify-between h-[80px] bg-slate-100 p-5 rounded-2xl">
                     <h2 className="font-bold text-2xl">World Time Zone</h2>
                     <div className="text-lg font-semibold">
                         <p>Location: <span className="font-normal">{time.timezone}</span></p>
